@@ -24,7 +24,7 @@ public class Main extends Application
 {
 
 	private int length = 12;
-	private String alphabet = Generator.ALPHANUMSYM;
+	private int maxIndex = 2;
 	private Insets insets = new Insets(10);
 
 	private TextField output;
@@ -82,13 +82,13 @@ public class Main extends Application
 			switch (sel.getText())
 			{
 			case "Alphabet only":
-				alphabet = Generator.ALP;
+				maxIndex = 0;
 				break;
 			case "Alphanumeric":
-				alphabet = Generator.ALPHANUM;
+				maxIndex = 1;
 				break;
 			case "Alphanumeric + Symbols":
-				alphabet = Generator.ALPHANUMSYM;
+				maxIndex = 2;
 				break;
 			}
 		});
@@ -99,12 +99,15 @@ public class Main extends Application
 	private VBox makeButtons()
 	{
 		VBox vb = new VBox();
+		
+		//generate button
 		Button genBtn = new Button("Generate Password");
 		genBtn.setOnAction(e -> {
-			Generator gen = new Generator(alphabet);
+			Generator gen = new Generator(maxIndex);
 			output.setText(gen.randomString(length));
 		});
 
+		//copy button
 		Button copyBtn = new Button("Copy Password");
 		copyBtn.setOnAction(e -> {
 			ClipboardContent content = new ClipboardContent();
